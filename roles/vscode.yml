@@ -1,0 +1,30 @@
+---
+
+- name: download VS Code
+  get_url: url={{ https://go.microsoft.com/fwlink/?LinkID=760868 }} dest=/tmp/vscode-amd64.deb
+  tags:
+    - packages
+    - ide
+
+
+- name: install dependencies
+  apt: name={{ item }} state=latest
+  with_items:
+    - lib
+  tags:
+    - packages
+
+
+- name: install VS Code
+  shell: dpkg -i /tmp/vscode-amd64.deb
+  sudo: yes
+  tags:
+    - packages
+    - ide
+
+
+- name: patch libxcb for use with VNC
+  tags:
+    - packages
+    - patches
+    - ide

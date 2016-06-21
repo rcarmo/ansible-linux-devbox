@@ -1,0 +1,11 @@
+---
+
+- name: Desktop environment
+  apt: name={{ item }} state=latest
+  with_items:
+    - vnc4server
+    - wmaker
+    - gtk2-engines-pixbuf
+    - lxappearance
+    - lxterminal
+    - pcmanfs
