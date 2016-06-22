@@ -1,0 +1,39 @@
+---
+- name: install VS Code
+  hosts: all
+  tasks:
+
+    - name: download
+      get_url: url='https://go.microsoft.com/fwlink/?LinkID=760868' dest=/tmp/vscode-amd64.deb
+      tags:
+        - packages
+        - ide
+
+
+    - name: install dependencies
+      apt: name={{ item }} state=latest
+      with_items:
+        - libgconf-2-4
+        - libnss3
+        - libnotify-bin
+      tags:
+        - packages
+        - ide
+
+
+    - name: install VS Code
+      shell: dpkg -i /tmp/vscode-amd64.deb
+      tags:
+        - packages
+        - ide
+
+
+    - name: patch libxcb for use with VNC
+      shell: "{{ item }}"
+      with_items:
+        - cp /usr/lib/x86_64-linux-gnu/libxcb.so.1 /usr/share/code
+        - sed -i 's/BIG-REQUESTS/_IG-REQUESTS/' /usr/share/code/libxcb.so.1
+      tags:
+        - packages
+        - patches
+        - ide

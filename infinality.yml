@@ -1,0 +1,22 @@
+---
+- name: Font Stack
+  hosts: all
+  tasks:
+
+    - name: add APT repo
+      apt_repository: repo="ppa:no1wantdthisname/ppa" state=present update_cache=yes
+
+    - name: prepare font settings 
+      shell: echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+      
+    - name: install Infinality and fonts
+      apt: name={{ item }} state=latest
+      with_items:
+        - ttf-mscorefonts-installer
+        - fontconfig-infinality
+        - fonts-roboto
+        - fonts-droid-fallback
+
+    - name: set font style
+      shell: /etc/fonts/infinality/infctl.sh setstyle osx
+          

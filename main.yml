@@ -1,0 +1,6 @@
+---
+
+- hosts: target
+
+- roles:
+    - vscode

@@ -1,0 +1,21 @@
+---
+
+- name: Desktop environment
+  hosts: all
+  tasks:
+
+    - name: Core GUI Packages
+      apt: name={{ item }} state=latest
+      with_items:
+        - vnc4server
+        - wmaker
+        - wmaker-data
+        - gtk2-engines-pixbuf
+        - lxappearance
+        - lxterminal
+        - pcmanfm
+        - wmcpuload
+        - wmmemload
+        - firefox
+        - 
+
