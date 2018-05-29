@@ -1,2 +1,0 @@
-52.169.187.209 ansible_ssh_user=rcarmo
-;host ansible_ssh_port=22 ansible_ssh_host=52.169.187.209 ansible_ssh_user=rcarmo
